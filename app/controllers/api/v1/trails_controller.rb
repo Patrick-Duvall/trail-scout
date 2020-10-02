@@ -1,21 +1,27 @@
 class Api::V1::TrailsController < ApplicationController
 
-  before_action :validate_lat_lon, only: [:index]
+  before_action :validate_address, only: [:index]
 
   def index
-    trails = HikingProjectTrailService.get_trails(trail_params)
-    binding.pry 
+    @location = GoogleGeocodingService.find_address(params[:location])
+    trails = HikingProjectTrailService.get_trails(format_trail_params)
     render json: trails, each_serializer: Api::V1::TrailSerializer, root: 'trails'
   end
 
   private
 
-  def validate_lat_lon
-    render json: {errors: ['include lat and lon as params']}, status: :bad_request unless
-      params[:lat] && params[:lon]
+  attr_reader :location
+
+  def validate_address
+    render json: {errors: ['include address as param']}, status: :unprocessable_entity unless
+      params[:address]
+  end
+
+  def format_trail_params
+    trail_params.except(:address).merge(lat:location['lat'], lon: location['lng'])
   end
 
   def trail_params
-    params.permit(:lat, :lon, :maxDistance, :maxResults, :sort, :minLength, :minStars)
+    params.permit(:address, :maxDistance, :maxResults, :sort, :minLength, :minStars)
   end
 end

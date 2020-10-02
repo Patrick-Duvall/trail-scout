@@ -8,8 +8,8 @@ class HikingProjectTrailService
     trail_data = conn.get('data/get-trails') do |req|
         req.params = params
     end
-    binding.pry
     trails = JSON.parse(trail_data.body)['trails']
+    return [] unless trails
     trails.map{|trail_details| Trail.new(trail_details)}
   end
 
