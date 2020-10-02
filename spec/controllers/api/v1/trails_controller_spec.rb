@@ -19,12 +19,14 @@ RSpec.describe Api::V1::TrailsController, type: :controller do
     end
 
     it 'returns by default 10 trails' do
-      get :index, params: {lat: 39.7392, lon: 104.9903}
-      binding.pry
-      expect(response.body.count).to eq(10)
-      response.body.each do |response|
-          expect(response.trail_name)
-          expect(response.website)
+      allow_any_instance_of(Faraday::Connection).to receive(:get).and_return(file_fixture("hiking_trails_response.json"))
+      get :index, params: {lat: 40.0274, lon: -105.2519}
+      expect(response.body['trails']).to eq(10)
+      response.body['trails'] do |trail|
+          expect(trail.name)
+          expect(trail.summary)
+          expect(trail.url)
+          expect(trail.location)
       end
     end
   end

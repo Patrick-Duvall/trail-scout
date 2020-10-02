@@ -4,7 +4,8 @@ class Api::V1::TrailsController < ApplicationController
 
   def index
     trails = HikingProjectTrailService.get_trails(trail_params)
-    render json: trails
+    binding.pry 
+    render json: trails, each_serializer: Api::V1::TrailSerializer, root: 'trails'
   end
 
   private

@@ -5,11 +5,12 @@ class HikingProjectTrailService
   end
 
   def get_trails(params)
-    binding.pry
-    trails = conn.get('data/get_trails') do |req|
+    trail_data = conn.get('data/get-trails') do |req|
         req.params = params
     end
     binding.pry
+    trails = JSON.parse(trail_data.body)['trails']
+    trails.map{|trail_details| Trail.new(trail_details)}
   end
 
 private
