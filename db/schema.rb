@@ -10,13 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_03_170221) do
+ActiveRecord::Schema.define(version: 2020_10_03_181246) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "trail_searches", force: :cascade do |t|
-    t.string "city"
+    t.string "city", null: false
     t.integer "max_distance"
     t.integer "max_results"
     t.integer "sort"

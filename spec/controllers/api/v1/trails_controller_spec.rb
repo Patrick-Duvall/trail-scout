@@ -22,15 +22,13 @@ RSpec.describe Api::V1::TrailsController, type: :controller do
       
       context 'with address provided' do
 
-        before do
-          get :index, params: {address: 'Denver, CO'}
-        end
-        
         it 'returns a 200' do
+          get :index, params: {address: 'Denver, CO'}
           expect(response.status).to eq 200
         end
 
       it 'returns 10 trails' do
+        get :index, params: {address: 'Denver, CO'}
         trails = JSON.parse(response.body)
         expect(trails.count).to eq(10)
         trails.each do |trail|
@@ -42,7 +40,8 @@ RSpec.describe Api::V1::TrailsController, type: :controller do
       end
 
       it 'logs a trail search' do
-        expect(TrailSearch.count).to have_increase_by(1)
+        expect(TrailSearchCreator).to receive(:log_search).with({"address"=>"Denver, CO"})
+        get :index, params: {address: 'Denver, CO'}
       end
     end
   end
