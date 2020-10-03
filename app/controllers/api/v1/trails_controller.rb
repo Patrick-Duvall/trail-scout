@@ -19,7 +19,6 @@ class Api::V1::TrailsController < ApplicationController
       params[:address]
     return render json: {errors: ['format address like Denver, CO']}, status: :unprocessable_entity unless
       params[:address].match(/^[\w\s]+,\s\w{2}$/)
-
   end
 
   def format_trail_params
@@ -32,6 +31,7 @@ class Api::V1::TrailsController < ApplicationController
   end
 
   def log_search
+    binding.pry
     TrailSearchCreator.log_search(trail_params)
   end
 end
