@@ -7,7 +7,7 @@ class TrailSearchIndexFilter
   def fetch_searches(params)
     @params = params
     TrailSearch.where('city ILIKE ?', "%#{params[:city]}%")
-      .order("#{params[:sort]} #{direction}")
+      .order("#{params[:sort] || 'created_at'} #{direction}")
   end
 
   private
@@ -17,5 +17,4 @@ class TrailSearchIndexFilter
   def direction
     %w(desc DESC).include?(params[:direction]) ? params[:direction] : 'ASC'
   end
-
 end
