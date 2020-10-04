@@ -22,7 +22,6 @@ class Api::V1::TrailsController < ApplicationController
   end
 
   def format_trail_params
-    #TODO delete except?
     trail_params.except(:address).merge(lat:location['lat'], lon: location['lng'])
   end
 
@@ -31,7 +30,6 @@ class Api::V1::TrailsController < ApplicationController
   end
 
   def log_search
-    binding.pry
     TrailSearchCreator.log_search(trail_params)
   end
 end
