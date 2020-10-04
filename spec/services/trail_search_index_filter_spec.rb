@@ -36,49 +36,54 @@ RSpec.describe TrailSearchIndexFilter do
       expect(searches).to include(search_1, search_2)
     end
 
+    it 'filters on quality' do
+      searches = described_class.fetch_searches(filter: 'quality')
+      expect(searches).to eq([search_2, search_3])
+    end
+
+    it 'filters on distance' do
+      searches = described_class.fetch_searches(filter: 'distance')
+      expect(searches).to eq([search_1])
+    end
+
     it 'sorts searches by max_distance' do
-      searches = described_class.fetch_searches(sort: 'max_distance')
+      searches = described_class.fetch_searches(order: 'max_distance')
       expect(searches).to eq([search_2, search_1, search_3])
     end
 
     it 'sorts searches by max_results' do
-      searches = described_class.fetch_searches(sort: 'max_results')
-      expect(searches).to eq([search_2, search_1, search_3])
-    end
-
-    xit 'sorts searches by searches sort type' do
-      searches = described_class.fetch_searches(sort: 'max_distance')
+      searches = described_class.fetch_searches(order: 'max_results')
       expect(searches).to eq([search_2, search_1, search_3])
     end
 
     it 'sorts searches by min_length' do
-      searches = described_class.fetch_searches(sort: 'min_length')
+      searches = described_class.fetch_searches(order: 'min_length')
       expect(searches).to eq([search_2, search_1, search_3])
     end
 
     it 'sorts searches by min_stars' do
-      searches = described_class.fetch_searches(sort: 'min_length')
+      searches = described_class.fetch_searches(order: 'min_stars')
       expect(searches).to eq([search_2, search_1, search_3])
     end
 
     context 'when passed a direction desc' do
       it 'sorts searches by max_distance' do
-        searches = described_class.fetch_searches(sort: 'max_distance', direction: 'desc')
+        searches = described_class.fetch_searches(order: 'max_distance', direction: 'desc')
         expect(searches).to eq([search_3, search_1, search_2])
       end
 
       it 'sorts searches by max_results' do
-        searches = described_class.fetch_searches(sort: 'max_results', direction: 'desc')
+        searches = described_class.fetch_searches(order: 'max_results', direction: 'desc')
         expect(searches).to eq([search_3, search_1, search_2])
       end
 
       it 'sorts searches by min_length' do
-        searches = described_class.fetch_searches(sort: 'min_length', direction: 'desc')
+        searches = described_class.fetch_searches(order: 'min_length', direction: 'desc')
         expect(searches).to eq([search_3, search_1, search_2])
       end
 
       it 'sorts searches by min_stars' do
-        searches = described_class.fetch_searches(sort: 'min_length', direction: 'desc')
+        searches = described_class.fetch_searches(order: 'min_length', direction: 'desc')
         expect(searches).to eq([search_3, search_1, search_2])
       end
     end
