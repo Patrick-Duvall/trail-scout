@@ -5,8 +5,17 @@ class TrailSearchIndexFilter
   end
 
   def fetch_searches(params)
-    binding.pry
+    @params = params
     TrailSearch.where('city ILIKE ?', "%#{params[:city]}%")
+      .order("#{params[:sort]} #{direction}")
+  end
+
+  private
+
+  attr_reader :params
+
+  def direction
+    %w(desc DESC).include?(params[:direction]) ? params[:direction] : 'ASC'
   end
 
 end
