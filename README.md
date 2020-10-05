@@ -9,6 +9,8 @@ It functions as a pass through and will accept any of the optional arguements th
 
 ## Endpoints
 
+This api is hosted at http://trail-scout22.herokuapp.com, endpoints should then be formatted: `http://trail-scout22.herokuapp.com/api/v1/trails`
+
 ### GET api/v1/trails
 Returns a list of hiking trails near a specified city in the following format:
 ```javascript
