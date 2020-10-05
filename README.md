@@ -36,7 +36,7 @@ Returns a list of hiking trails near a specified city in the following format:
 ]
 ``` 
 ###### Required Params
-- city A city name, formatted 'Denver, CO'
+- address, A city name, formatted 'Denver, CO'
 
 ###### Optional Params
 - maxDistance - Max distance, in miles, from lat, lon. Default: 30. Max: 200. 
