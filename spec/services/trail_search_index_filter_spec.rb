@@ -41,8 +41,28 @@ RSpec.describe TrailSearchIndexFilter do
       expect(searches).to eq([search_2, search_3])
     end
 
-    it 'filters on distance' do
+    xit 'filters on distance' do
       searches = described_class.fetch_searches(sort: 'distance')
+      expect(searches).to eq([search_1])
+    end
+
+    xit 'filters on max_distance' do
+      searches = described_class.fetch_searches(max_distance: '10')
+      expect(searches).to eq([search_1])
+    end
+
+    xit 'filters on max_results' do
+      searches = described_class.fetch_searches(max_results: '10')
+      expect(searches).to eq([search_1])
+    end
+
+    xit 'filters on min_length' do
+      searches = described_class.fetch_searches(max_distance: '10')
+      expect(searches).to eq([search_1])
+    end
+
+    xit 'filters on min_stars' do
+      searches = described_class.fetch_searches(min_stars: '3')
       expect(searches).to eq([search_1])
     end
 
