@@ -4,7 +4,7 @@ Trail scout is a backend API in rails that consumes the Google Geolocation API a
 - https://www.hikingproject.com/data
 - https://maps.googleapis.com/maps/api/geocode.
 
-It functions as a pass through and will accept any of the optional arguements the Hiking Trails API accepts but uses the Geocoding API to allow users to pass in city names rather than lat/lng. The reason it does this is it records every search that is performed through it and using cities rather than lat/lng standardizes the data. It's two endpoints are the trails index to return parsed down trail information to users, and the trail_searches index endpoint to provide information about the searches that have been performed
+It functions as a pass through and will accept any of the optional arguments the Hiking Trails API accepts but uses the Geocoding API to allow users to pass in city names rather than lat/lng. The reason it does this is it records every search that is performed through it and using cities rather than lat/lng standardizes the data. It's two endpoints are the trails index to return parsed down trail information to users, and the trail_searches index to provide information about the searches that have been performed
 
 
 ## Endpoints
