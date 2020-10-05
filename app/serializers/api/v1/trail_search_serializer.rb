@@ -1,5 +1,5 @@
 class Api::V1::TrailSearchSerializer < ActiveModel::Serializer
-  include RemoveNullAttributes
+  include Api::V1::RemoveNullAttributes
   attributes  :city,
               :max_distance,
               :max_results,
