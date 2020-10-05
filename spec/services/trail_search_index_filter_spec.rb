@@ -4,7 +4,7 @@ RSpec.describe TrailSearchIndexFilter do
   describe '.fetch_searches' do
     let!(:search_1) do FactoryBot.create( #middle values for sort
       :trail_search,
-      city: 'lipton, mo',
+      city: 'loveland, co',
       max_distance: 15,
       max_results: 2,
       sort: 'distance',
@@ -31,18 +31,18 @@ RSpec.describe TrailSearchIndexFilter do
     end
 
     it 'filters on a city name' do
-      searches = described_class.fetch_searches(city: 'lip')
+      searches = described_class.fetch_searches(city: 'loveland, co')
       expect(searches.count).to eq(2)
-      expect(searches).to include(search_1, search_2)
+      expect(searches).to include(search_1, search_3)
     end
 
     it 'filters on quality' do
-      searches = described_class.fetch_searches(filter: 'quality')
+      searches = described_class.fetch_searches(sort: 'quality')
       expect(searches).to eq([search_2, search_3])
     end
 
     it 'filters on distance' do
-      searches = described_class.fetch_searches(filter: 'distance')
+      searches = described_class.fetch_searches(sort: 'distance')
       expect(searches).to eq([search_1])
     end
 
