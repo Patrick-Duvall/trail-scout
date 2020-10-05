@@ -5,7 +5,6 @@ class Api::V1::TrailsController < ApplicationController
 
   def index
     @location = GoogleGeocodingService.find_address(params[:address])
-    # TODO cache location
     trails = HikingProjectTrailService.get_trails(format_trail_params)
     render json: trails, each_serializer: Api::V1::TrailSerializer, root: 'trails'
   end

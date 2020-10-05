@@ -2,6 +2,9 @@ class Api::V1::TrailSerializer < ActiveModel::Serializer
   attributes  :name,
               :summary,
               :location,
-              :url
+              :url,
+              :length,
+              :distance,
+              :stars 
                                        
 end

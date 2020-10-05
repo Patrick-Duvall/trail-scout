@@ -6,9 +6,9 @@ class Trail
     @location = attributes['location']
     @url = attributes['url']
     @length = attributes['length']
-    @quality = attributes['stars']
+    @stars = attributes['stars']
     @distance = attributes['distance']
   end
 
-  attr_reader :name, :summary, :location, :url, :length, :quality, :distance
+  attr_reader :name, :summary, :location, :url, :length, :stars, :distance
 end

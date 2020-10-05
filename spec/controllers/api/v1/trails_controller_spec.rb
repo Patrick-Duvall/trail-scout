@@ -15,7 +15,7 @@ RSpec.describe Api::V1::TrailsController, type: :controller do
         expect(response.status).to eq 422
       end
       
-      it 'ignores invalid params' do
+      it 'returns a 200 if invalid params provided' do
         get :index, params: {address: 'Denver, CO', chowder: 'yummy'}
         expect(response.status).to eq 200
       end
