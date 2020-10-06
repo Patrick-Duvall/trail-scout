@@ -4,6 +4,12 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :trails, only: [:index]
       resources :trail_searches, only: [:index]
+      resources :users, only: [:create]
+      resources :sessions, only: [:create]
+
+      namespace :users do
+        resources :trail_searches, only: [:index]
+      end
     end
   end
 end
