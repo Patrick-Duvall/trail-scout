@@ -1,5 +1,5 @@
 class Api::V1::TrailsController < ApplicationController
-
+  before_action :validate_api_key, only: [:index]
   before_action :validate_address, only: [:index]
   after_action :log_search, only: [:index]
 
@@ -21,14 +21,22 @@ class Api::V1::TrailsController < ApplicationController
   end
 
   def format_trail_params
-    trail_params.except(:address).merge(lat:location['lat'], lon: location['lng'])
+    trail_params.except(:address, :api_key).merge(lat:location['lat'], lon: location['lng'])
   end
 
   def trail_params
-    params.permit(:address, :maxDistance, :maxResults, :sort, :minLength, :minStars)
+    params.permit(:address, :api_key, :maxDistance, :maxResults, :sort, :minLength, :minStars)
   end
 
   def log_search
     TrailSearchCreator.log_search(trail_params)
+  end
+
+  def validate_api_key
+    # TODO refactor all these errors
+    return render json: {errors: ['Please provide an api_key']}, status: :unprocessable_entity unless
+      params[:api_key]
+    return render json: {errors: ['Invalid api_key']}, status: :unprocessable_entity unless
+      User.find_by(api_key: params[:api_key])
   end
 end
