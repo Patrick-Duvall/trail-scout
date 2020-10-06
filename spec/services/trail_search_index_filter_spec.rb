@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe TrailSearchIndexFilter do
   describe '.fetch_searches' do
+    let(:api_key) { FactoryBot.create(:user).api_key }
+    let(:other_api_key) { FactoryBot.create(:user).api_key }
     let!(:search_1) do FactoryBot.create( #middle values for sort
       :trail_search,
       city: 'loveland, co',
@@ -9,7 +11,8 @@ RSpec.describe TrailSearchIndexFilter do
       max_results: 2,
       sort: 'distance',
       min_length: 2,
-      min_stars: 3)
+      min_stars: 3,
+      api_key: api_key)
     end
     let!(:search_2) do FactoryBot.create( #lowest values for sort
       :trail_search,
@@ -18,7 +21,8 @@ RSpec.describe TrailSearchIndexFilter do
       max_results: 1,
       sort: 'quality',
       min_length: 1,
-      min_stars: 2)
+      min_stars: 2,
+      api_key: api_key)
     end
     let!(:search_3) do FactoryBot.create( #highest values for sort
       :trail_search,
@@ -27,7 +31,8 @@ RSpec.describe TrailSearchIndexFilter do
       max_results: 3,
       sort: 'quality',
       min_length: 3,
-      min_stars: 4)
+      min_stars: 4,
+      api_key: other_api_key)
     end
 
     it 'filters on a city name' do
@@ -44,6 +49,11 @@ RSpec.describe TrailSearchIndexFilter do
     it 'filters on distance' do
       searches = described_class.fetch_searches(sort: 'distance')
       expect(searches).to eq([search_1])
+    end
+
+    it 'filters on api_key' do
+      searches = described_class.fetch_searches(api_key: api_key)
+      expect(searches).to eq([search_1, search_2])
     end
 
     it 'sorts searches by max_distance' do

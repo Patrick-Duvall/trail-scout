@@ -31,12 +31,4 @@ class Api::V1::TrailsController < ApplicationController
   def log_search
     TrailSearchCreator.log_search(trail_params)
   end
-
-  def validate_api_key
-    # TODO refactor all these errors
-    return render json: {errors: ['Please provide an api_key']}, status: :unprocessable_entity unless
-      params[:api_key]
-    return render json: {errors: ['Invalid api_key']}, status: :unprocessable_entity unless
-      User.find_by(api_key: params[:api_key])
-  end
 end
