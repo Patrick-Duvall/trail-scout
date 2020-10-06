@@ -1,4 +1,4 @@
-class Api::V1::User::TrailSearchesController < ApplicationController
+class Api::V1::Users::TrailSearchesController < ApplicationController
 
   before_action :validate_api_key, only: [:index]
 

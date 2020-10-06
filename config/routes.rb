@@ -7,7 +7,7 @@ Rails.application.routes.draw do
       resources :users, only: [:create]
       resources :sessions, only: [:create]
 
-      namespace :user do
+      namespace :users do
         resources :trail_searches, only: [:index]
       end
     end

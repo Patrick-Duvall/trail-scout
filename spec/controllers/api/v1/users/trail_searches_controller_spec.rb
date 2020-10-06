@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Api::V1::User::TrailSearchesController, type: :controller do
+RSpec.describe Api::V1::Users::TrailSearchesController, type: :controller do
 
   describe 'GET #index' do
 
