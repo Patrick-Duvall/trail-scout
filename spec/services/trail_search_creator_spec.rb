@@ -14,7 +14,7 @@ RSpec.describe TrailSearchCreator do
           minLength: '2',
           minStars: '3',
           api_key: user.api_key
-        }
+          }
 
         trail_search = TrailSearchCreator.log_search(params)
 

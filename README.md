@@ -4,10 +4,12 @@ Trail scout is a backend API in rails that consumes the Google Geolocation API a
 - https://www.hikingproject.com/data
 - https://maps.googleapis.com/maps/api/geocode.
 
-It functions as a pass through and will accept any of the optional arguements the Hiking Trails API accepts but uses the Geocoding API to allow users to pass in city names rather than lat/lng. The reason it does this is it records every search that is performed through it and using cities rather than lat/lng standardizes the data. It's two endpoints are the trails index to return parsed down trail information to users, and the trail_searches index endpoint to provide information about the searches that have been performed
+It functions as a pass through and will accept any of the optional arguments the Hiking Trails API accepts but uses the Geocoding API to allow users to pass in city names rather than lat/lng. The reason it does this is it records every search that is performed through it and using cities rather than lat/lng standardizes the data. It's two endpoints are the trails index to return parsed down trail information to users, and the trail_searches index to provide information about the searches that have been performed
 
 
 ## Endpoints
+
+This api is hosted at http://trail-scout22.herokuapp.com, endpoints should then be formatted: `http://trail-scout22.herokuapp.com/api/v1/trails`
 
 ### GET api/v1/trails
 Returns a list of hiking trails near a specified city in the following format:
@@ -34,7 +36,7 @@ Returns a list of hiking trails near a specified city in the following format:
 ]
 ``` 
 ###### Required Params
-- city A city name, formatted 'Denver, CO'
+- address, A city name, formatted 'Denver, CO'
 
 ###### Optional Params
 - maxDistance - Max distance, in miles, from lat, lon. Default: 30. Max: 200. 
