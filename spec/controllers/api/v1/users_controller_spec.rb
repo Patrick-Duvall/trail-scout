@@ -14,9 +14,9 @@ RSpec.describe Api::V1::UsersController, type: :controller do
                             password_confirmation: password
                           }
         expect(response.status).to eq(201)
-        response = JSON.parse(response.body)
-        expect(response[:user][:email]).to eq(email)
-        expect(response[:user][:api_key]).to eq(User.last.api_key)
+        user = JSON.parse(response.body)
+        expect(user['email']).to eq(email)
+        expect(user['api_key']).to eq(User.last.api_key)
     end
 
     it 'requires matching password and password confirmation' do
@@ -24,7 +24,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
                             password: password,
                             password_confirmation: other_password
                           }
-        expect(response.status).to eq(404)
+      expect(response.status).to eq(404)
     end
 
     context 'with an existing user' do
@@ -39,7 +39,6 @@ RSpec.describe Api::V1::UsersController, type: :controller do
                             password_confirmation: other_password
                           }
         expect(response.status).to eq(422)
-      end
       end
     end
   end

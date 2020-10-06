@@ -8,7 +8,7 @@ RSpec.describe TrailSearchCreator do
         address: 'Denver, CO',
         maxResults: '1',
         maxDistance: '19',
-        sort: '1',
+        sort: 'distance',
         minLength: '2',
         minStars: '3',
       }
