@@ -36,7 +36,6 @@ RSpec.describe Api::V1::TrailsController, type: :controller do
         it 'returns 422' do
           get :index, params: {address: 'Denver, CO', api_key: 'nogood'}
           expect(response.status).to eq 422
-          binding.pry
           error = JSON.parse(response.body)['errors']
           expect(error).to eq(['Invalid api_key'])
         end
