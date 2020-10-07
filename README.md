@@ -4,7 +4,7 @@ Trail scout is a backend API in rails that consumes the Google Geolocation API a
 - https://www.hikingproject.com/data
 - https://maps.googleapis.com/maps/api/geocode.
 
-It authenticates users by making them create an account with an email and password, then provides them an API key. They then use this api key to lookup trail information for a given city via a trails index. The app records information about their searches which can be accessed via a trail_searches index, or a user specific user/trail_searches index, which returns a users search history.
+It authenticates users by making them create an account with an email and password, then provides them an API key. They then use this api key to lookup trail information for a given city via a `trails` index. The app records information about their searches which can be accessed via a `trail_searches` index, or a user specific `user/trail_searches` index, which returns a users search history.
 
 
 ## Endpoints
@@ -41,6 +41,9 @@ Response:
 ### GET api/v1/trails
 Returns a list of hiking trails near a specified city in the following format:
 ```javascript
+Request Params {"address" => "denver, co", "api_key" => "85b559b418ae6d670e1a10c390d6bf34", "limit" => "2"}
+
+Response:
 [
     {
         "name": "City Park Loop",
@@ -76,8 +79,9 @@ Returns a list of hiking trails near a specified city in the following format:
 ### GET api/v1/trail_searches
 Returns stats about all recorded searches. Only serializes search information that a user provided. Returns in the following format:
 ```javascript
-GET api/v1/trail_searches?order=max_results&direction=desc&limit=3
+Request Params {"order" => "max_results", "direction" => "desc", "limit" => "3"}
 
+Response:
   [
     {
         "city": "denver, co",
