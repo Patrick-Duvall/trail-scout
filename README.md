@@ -101,7 +101,7 @@ Response:
 ```
 ###### Optional Params
 - city - formatted `denver, co` returns exact matches for the provided city 
-- order - sorts the returned trail searches based on a given order, acccepts `min_ength`, `min_stars`, `max_results`, `max_distance`. Defaults to created_at if not provided.
+- order - sorts the returned trail searches based on a given order, acccepts `min_length`, `min_stars`, `max_results`, `max_distance`. Defaults to created_at if not provided.
 - direction - `asc` or `desc`, orders the returned trail searches in the given direction
 - sort - returns trail searches where a sort type was provided, accepts `quality` and `distance`. Returns null values last.
 - limit - limit number of returned results, default 10
