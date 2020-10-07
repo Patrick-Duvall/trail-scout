@@ -4,12 +4,39 @@ Trail scout is a backend API in rails that consumes the Google Geolocation API a
 - https://www.hikingproject.com/data
 - https://maps.googleapis.com/maps/api/geocode.
 
-It functions as a pass through and will accept any of the optional arguments the Hiking Trails API accepts but uses the Geocoding API to allow users to pass in city names rather than lat/lng. The reason it does this is it records every search that is performed through it and using cities rather than lat/lng standardizes the data. It's two endpoints are the trails index to return parsed down trail information to users, and the trail_searches index to provide information about the searches that have been performed
+It authenticates users by making them create an account with an email and password, then provides them an API key. They then use this api key to lookup trail information for a given city via a trails index. The app records information about their searches which can be accessed via a trail_searches index, or a user specific user/trail_searches index, which returns a users search history.
 
 
 ## Endpoints
 
 This api is hosted at http://trail-scout22.herokuapp.com, endpoints should then be formatted: `http://trail-scout22.herokuapp.com/api/v1/trails`
+
+### POST api/v1/users
+User creation endpoint, requires an email and matching password and password_confirmation
+```javascript
+Request Params: {"email"=>"duvallp200@gmail.com", "password"=>"password", "password_confirmation"=>"password"
+
+Response:
+{
+    "email": "duvallp209@gmail.com",
+    "api_key": "85b559b418ae6d670e1a10c390d6bf34"
+}
+]
+```
+### POST api/v1/sessions
+Requires a valid user email and matching password 
+```javascript
+Request Params: {"email"=>"duvallp200@gmail.com", "password"=>"password"}
+
+Response:
+{
+    "email": "duvallp209@gmail.com",
+    "api_key": "85b559b418ae6d670e1a10c390d6bf34"
+}
+
+``` 
+
+### POST 
 
 ### GET api/v1/trails
 Returns a list of hiking trails near a specified city in the following format:
@@ -37,6 +64,7 @@ Returns a list of hiking trails near a specified city in the following format:
 ``` 
 ###### Required Params
 - address, A city name, formatted 'Denver, CO'
+- api_key, the valid api_key of a user in the system
 
 ###### Optional Params
 - maxDistance - Max distance, in miles, from lat, lon. Default: 30. Max: 200. 
@@ -73,6 +101,34 @@ GET api/v1/trail_searches?order=max_results&direction=desc&limit=3
 - direction - `asc` or `desc`, orders the returned trail searches in the given direction
 - sort - returns trail searches where a sort type was provided, accepts `quality` and `distance`. Returns null values last.
 - limit - limit number of returned results, default 10
+
+### GET api/v1/users/trail_searches
+Takes a users api_key and returns that users search history
+```javascript
+Request Params: {"api_key" => "85b559b418ae6d670e1a10c390d6bf34"}
+
+
+Response:
+[
+    {
+        "city": "denver, co",
+        "max_results": 2,
+        "sort": "quality"
+    },
+    {
+        "city": "denver, co",
+        "max_results": 1,
+        "sort": "quality"
+    },
+    {
+        "city": "denver, co",
+        "sort": "quality"
+    }
+]
+```
+###### Required Params
+- api_key, the valid api_key of a user in the system
+
 
 ## Running on your local machine
 1. `$ git clone git@github.com:Patrick-Duvall/trail-scout.git`
