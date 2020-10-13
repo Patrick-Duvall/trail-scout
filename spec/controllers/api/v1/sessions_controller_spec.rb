@@ -12,7 +12,7 @@ RSpec.describe Api::V1::SessionsController, type: :controller do
     it 'returns a users api key when given a valid email and pw' do
       get :create, params: { email: email, password: password}
       expect(response.status).to eq(200)
-      user = JSON.parse(response.body)
+      user = JSON.parse(response.body)['user']
       expect(user['api_key']).to eq(User.last.api_key)
     end
 

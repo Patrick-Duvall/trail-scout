@@ -49,7 +49,7 @@ RSpec.describe Api::V1::TrailsController, type: :controller do
 
         it 'returns 10 trails' do
           get :index, params: {address: 'Denver, CO', api_key: api_key}
-          trails = JSON.parse(response.body)
+          trails = JSON.parse(response.body)['trails']
           expect(trails.count).to eq(10)
           trails.each do |trail|
               expect(trail['name']).to be_a(String)

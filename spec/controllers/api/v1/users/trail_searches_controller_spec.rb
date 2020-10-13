@@ -14,7 +14,7 @@ RSpec.describe Api::V1::Users::TrailSearchesController, type: :controller do
     it 'returns all trails for a user by default' do
       FactoryBot.create_list(:trail_search, 2, user: user)
       get :index, params: {api_key: user.api_key}
-      searches = JSON.parse(response.body)
+      searches = JSON.parse(response.body)['trail_searches']
       expect(searches.count).to eq(2)
     end
   end

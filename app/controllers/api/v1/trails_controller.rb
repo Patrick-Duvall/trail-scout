@@ -8,6 +8,7 @@ class Api::V1::TrailsController < ApplicationController
     trails = HikingProjectTrailService.get_trails(format_trail_params)
     render json: trails, each_serializer: Api::V1::TrailSerializer, root: 'trails'
   end
+  # Post.paginate(page: params[:page])
 
   private
 

@@ -14,7 +14,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
                             password_confirmation: password
                           }
         expect(response.status).to eq(201)
-        user = JSON.parse(response.body)
+        user = JSON.parse(response.body)['user']
         expect(user['email']).to eq(email)
         expect(user['api_key']).to eq(User.last.api_key)
     end
