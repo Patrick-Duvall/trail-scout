@@ -135,6 +135,7 @@ Response:
 
 
 ## Running on your local machine
+###### Unfortunately Hiking Trails is no longer providing public API keys
 1. `$ git clone git@github.com:Patrick-Duvall/trail-scout.git`
 1. `$ bundle`
 1. `$ add your API keys to `.env`: 
