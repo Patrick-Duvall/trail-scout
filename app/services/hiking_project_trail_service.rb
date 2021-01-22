@@ -8,7 +8,7 @@ class HikingProjectTrailService
     new.get_trails(params.merge(key: ENV['HIKING_TRAILS_KEY']))
   end
 
-  def get_trails(params)
+  def get_trails(params, connection=CLIENT)
     trail_data = connection.get('data/get-trails') do |req|
         req.params = params
     end
