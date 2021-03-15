@@ -26,7 +26,6 @@ Response:
     "email": "duvallp209@gmail.com",
     "api_key": "85b559b418ae6d670e1a10c390d6bf34"
 }
-]
 ```
 ## Session Create
 ###### URL: /api/v1/sessions | Method: POST | Required Params: "email", "password"
@@ -76,6 +75,7 @@ Response:
 ###### URL: /api/v1/trail_searches | Method: GET | Required Params: none
 Returns stats about all recorded searches. Only serializes search information that a user provided. Returns in the following format:
 ```json
+Response:
   [
     {
         "city": "denver, co",
