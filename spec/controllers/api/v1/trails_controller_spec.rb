@@ -64,5 +64,29 @@ RSpec.describe Api::V1::TrailsController, type: :controller do
           get :index, params: {address: 'Denver, CO', api_key: api_key}
         end
     end
+
+  #  before do
+  #   allow_any_instance_of(Object).to receive(:foo).and_return(:return_value)
+  # end
+
+    context 'when Google API service is down' do
+      it 'returns a 503' do
+        stub_request(:get, "https://maps.googleapis.com/maps/api/geocode/json?address=Denver,%20CO&key=#{ENV['GOOGLE_PLACES_KEY']}")
+          .to_return( body: nil)
+        get :index, params: {address: 'Denver, CO', api_key: api_key}
+        expect(response.status).to eq(503)
+        expect(JSON.parse(response.body)).to eq({'message' =>'The Google API seems to be down'})
+      end
+    end
+
+    context 'when HikingProject API service is down' do
+      it 'returns a 503' do
+        stub_request(:get, "https://www.hikingproject.com/data/get-trails?lat=39.7392358&lon=-104.990251&key=#{ENV['HIKING_TRAILS_KEY']}")
+          .to_return( body: nil)
+        get :index, params: {address: 'Denver, CO', api_key: api_key}
+        expect(response.status).to eq(503)
+        expect(JSON.parse(response.body)).to eq({ 'message' =>'The Hiking Trails API seems to be down' })
+      end
+    end
   end
 end

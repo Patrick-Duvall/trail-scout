@@ -4,14 +4,22 @@ class Api::V1::TrailsController < ApplicationController
   after_action :log_search, only: [:index]
 
   def index
-    @location = GoogleGeocodingService.find_address(params[:address])
-    trails = HikingProjectTrailService.get_trails(format_trail_params)
-    render json: trails, each_serializer: Api::V1::TrailSerializer, root: 'trails'
+      begin
+        @location = GoogleGeocodingService.find_address(params[:address])
+      rescue
+        return render json: {message: 'The Google API seems to be down'}, status: :service_unavailable
+      end
+      begin
+        trails = HikingProjectTrailService.get_trails(format_trail_params)
+      rescue
+        return render json: {message: 'The Hiking Trails API seems to be down'}, status: :service_unavailable
+      end
+      render json: trails, each_serializer: Api::V1::TrailSerializer, root: 'trails'
   end
 
   private
 
-  attr_reader :location
+  attr_reader :location, :message
 
   def validate_address
     return render json: {errors: ['include address as param']}, status: :unprocessable_entity unless
@@ -19,6 +27,7 @@ class Api::V1::TrailsController < ApplicationController
     return render json: {errors: ['format address like Denver, CO']}, status: :unprocessable_entity unless
       params[:address].match(/^[\w\s]+,\s\w{2}$/)
   end
+
 
   def format_trail_params
     trail_params.except(:address, :api_key).merge(lat:location['lat'], lon: location['lng'])
