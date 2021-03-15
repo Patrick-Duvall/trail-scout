@@ -1,4 +1,4 @@
-# README
+# Trail Scout
 
 Trail scout is a backend API in rails that consumes the Google Geolocation API and Hiking Trails data API
 - https://www.hikingproject.com/data
