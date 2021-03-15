@@ -75,7 +75,7 @@ RSpec.describe Api::V1::TrailsController, type: :controller do
           .to_return( body: nil)
         get :index, params: {address: 'Denver, CO', api_key: api_key}
         expect(response.status).to eq(503)
-        expect(JSON.parse(response.body)).to eq({'message' =>'The Google API seems to be down'})
+        expect(JSON.parse(response.body)).to eq({'message' =>'The Google Places API seems to be down'})
       end
     end
 
