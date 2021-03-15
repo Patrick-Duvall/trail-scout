@@ -19,7 +19,7 @@ class Api::V1::TrailsController < ApplicationController
 
   private
 
-  attr_reader :location, :message
+  attr_reader :location
 
   def validate_address
     return render json: {errors: ['include address as param']}, status: :unprocessable_entity unless
