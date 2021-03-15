@@ -1,4 +1,4 @@
-# README
+# Trail Scout
 
 Trail scout is a backend API in rails that consumes the Google Geolocation API and Hiking Trails data API
 - https://www.hikingproject.com/data
@@ -7,27 +7,30 @@ Trail scout is a backend API in rails that consumes the Google Geolocation API a
 It authenticates users by making them create an account with an email and password, then provides them an API key. They then use this api key to lookup trail information for a given city via a `trails` index. The app records information about their searches which can be accessed via a `trail_searches` index, or a user specific `user/trail_searches` index, which returns a users search history.
 
 
-## Endpoints
+# Endpoints
 
 This api is hosted at http://trail-scout22.herokuapp.com, endpoints should then be formatted: `http://trail-scout22.herokuapp.com/api/v1/trails`
 
-### POST api/v1/users
-User creation endpoint, requires an email and matching password and password_confirmation
-```javascript
-Request Params: {"email"=>"duvallp200@gmail.com", "password"=>"password", "password_confirmation"=>"password"
+- [User Create](#user-create)
+- [Session Create](#session-create)
+- [Trails Index](#trails-index)
+- [Trail Searches Index](#trail-searches-index)
+- [User Trail Searches](#user-trail-searches)
 
+## User Create
+###### URL: /api/v1/users | Method: POST | Required Params: "email", "password", "password_confirmation"
+User creation endpoint, requires an email and matching password and password_confirmation
+```json
 Response:
 {
     "email": "duvallp209@gmail.com",
     "api_key": "85b559b418ae6d670e1a10c390d6bf34"
 }
-]
 ```
-### POST api/v1/sessions
+## Session Create
+###### URL: /api/v1/sessions | Method: POST | Required Params: "email", "password"
 Requires a valid user email and matching password 
-```javascript
-Request Params: {"email"=>"duvallp200@gmail.com", "password"=>"password"}
-
+```json
 Response:
 {
     "email": "duvallp209@gmail.com",
@@ -35,14 +38,10 @@ Response:
 }
 
 ``` 
-
-### POST 
-
-### GET api/v1/trails
+## Trails Index
+###### URL: /api/v1/trails | Method: GET | Required Params: "address", "api_key"
 Returns a list of hiking trails near a specified city in the following format:
-```javascript
-Request Params {"address" => "denver, co", "api_key" => "85b559b418ae6d670e1a10c390d6bf34", "limit" => "2"}
-
+```json
 Response:
 [
     {
@@ -65,10 +64,6 @@ Response:
     }
 ]
 ``` 
-###### Required Params
-- address, A city name, formatted 'Denver, CO'
-- api_key, the valid api_key of a user in the system
-
 ###### Optional Params
 - maxDistance - Max distance, in miles, from lat, lon. Default: 30. Max: 200. 
 - maxResults - Max number of trails to return. Default: 10. Max: 500.
@@ -76,11 +71,10 @@ Response:
 - minLength - Min trail length, in miles. Default: 0 (no minimum).
 - minStars - Min star rating, 0-4. Default: 0.
 
-### GET api/v1/trail_searches
+## Trail Searches Index
+###### URL: /api/v1/trail_searches | Method: GET | Required Params: none
 Returns stats about all recorded searches. Only serializes search information that a user provided. Returns in the following format:
-```javascript
-Request Params {"order" => "max_results", "direction" => "desc", "limit" => "3"}
-
+```json
 Response:
   [
     {
@@ -106,12 +100,10 @@ Response:
 - sort - returns trail searches where a sort type was provided, accepts `quality` and `distance`. Returns null values last.
 - limit - limit number of returned results, default 10
 
-### GET api/v1/users/trail_searches
+### User Trail Searches
+###### URL: /api/v1/users/trail_searches | Method: GET | Required Params: "api_key"
 Takes a users api_key and returns that users search history
-```javascript
-Request Params: {"api_key" => "85b559b418ae6d670e1a10c390d6bf34"}
-
-
+```json
 Response:
 [
     {
@@ -130,10 +122,6 @@ Response:
     }
 ]
 ```
-###### Required Params
-- api_key, the valid api_key of a user in the system
-
-
 ## Running on your local machine
 ###### Unfortunately Hiking Trails is no longer providing public API keys
 1. `$ git clone git@github.com:Patrick-Duvall/trail-scout.git`
