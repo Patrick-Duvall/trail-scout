@@ -7,12 +7,12 @@ class Api::V1::TrailsController < ApplicationController
       begin
         @location = GoogleGeocodingService.find_address(params[:address])
       rescue
-        external_api_error("Google Places")
+        return external_api_error("Google Places")
       end
       begin
         trails = HikingProjectTrailService.get_trails(format_trail_params)
       rescue
-        external_api_error("Hiking Trails")
+        return external_api_error("Hiking Trails")
       end
       render json: trails, each_serializer: Api::V1::TrailSerializer, root: 'trails'
   end
@@ -29,7 +29,7 @@ class Api::V1::TrailsController < ApplicationController
   end
 
   def external_api_error(api)
-    return render json: {message: "The #{api} API seems to be down"}, status: :service_unavailable
+    render json: {message: "The #{api} API seems to be down"}, status: :service_unavailable
   end
 
 
