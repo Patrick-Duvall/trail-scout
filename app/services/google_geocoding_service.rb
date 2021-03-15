@@ -6,8 +6,8 @@ class GoogleGeocodingService
 
   def find_address(location)
     location_data = conn.get('/maps/api/geocode/json') do |req|
-        req.params['key'] = ENV['GOOGLE_PLACES_KEY']
-        req.params['address'] = location
+      req.params['key'] = ENV['GOOGLE_PLACES_KEY']
+      req.params['address'] = location
     end
     JSON.parse(location_data.body)['results'].first['geometry']['location']    
   end
